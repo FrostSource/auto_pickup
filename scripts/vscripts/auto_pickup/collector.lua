@@ -64,9 +64,8 @@ local function checkItem(_, ioparams)
     end
 
     if Convars:GetBool('auto_pickup_ignore_held_items') then
-        if Player.LeftHand and Player.LeftHand.ItemHeld == activator
-        or Player.RightHand and Player.RightHand.ItemHeld == activator then
-            devprint('Did not collect ' .. class .. ' because the player is holding it')
+        if Player:IsHolding(activator) then
+            devprint2('Did not collect ' .. class .. ' because the player is holding it')
             return
         end
     end
@@ -113,7 +112,7 @@ local function onEndTouch(_, ioparams)
 
     -- clear the IgnoreCollector flag so the item can be collected again
     -- if the player drops it and picks it up again
-    if ent:GetIntAttr('IgnoreCollector') == 1 then
+    if ent:GetIntAttr('IgnoreCollector') == 1 and not Player:IsHolding(ent) then
         ent:SetIntAttr('IgnoreCollector', 0)
     end
 end
