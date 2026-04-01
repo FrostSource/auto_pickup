@@ -153,7 +153,10 @@ function collector:IsCollectableItem(ent)
     if itemClasses[class] == nil then return false end
 
     local parent = ent:GetMoveParent()
-    if parent and parent:IsNPC() then return false end
+    if parent then
+        if parent:IsNPC() then return false end
+        if parent:GetClassname() == 'prop_hlvr_crafting_station_console' then return false end
+    end
 
     if class == 'item_hlvr_clip_energygun' then
         if not partialClipStorageEnabled and ent:GetIntAttr('ClipHasBeenChambered') == 1 then
