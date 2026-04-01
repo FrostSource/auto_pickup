@@ -1,0 +1,10 @@
+{
+  "VScriptInstalled": true,
+  "SoundEventInstalled": false,
+  "PanoramaInstalled": false,
+  "GitInstalled": true,
+  "ModFolderName": "auto_pickup",
+  "Version": "3.0.0",
+  "EditorType": "VisualStudioCode",
+  "FileRemovalGlobs": []
+}
