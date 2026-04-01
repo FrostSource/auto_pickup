@@ -8,7 +8,7 @@ local partialClipStorageEnabled = util.IsPartialClipStorageEnabled()
 GlobalPrecache:Add('model', 'models/auto_pickup/collector_trigger.vmdl')
 
 -- Minimum time between playing pickup sound, to avoid spamming when picking up multiple items at once.
-local SND_MIN_TIME = 0.08
+local SND_MIN_TIME = 0.05
 
 -- Trigger update interval in seconds. This is how often the trigger checks for touching entities.
 local TRIGGER_UPDATE_INTERVAL = 1.0
