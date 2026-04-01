@@ -6,5 +6,7 @@ if IsServer() then
     require("alyxlib.init")
 
     -- execute code or load mod libraries here
-
+    require("auto_pickup.convars")
+    require("auto_pickup.debug_menu")
+    require("auto_pickup.main")
 end
