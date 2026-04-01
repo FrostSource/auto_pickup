@@ -138,8 +138,11 @@ function collector:Init(parent)
     -- moving the trigger down helps mitigate misses when an item is next to a prop
     trigger:SetLocalOrigin(Vector(0, 0, -16))
 
-    trigger:RedirectOutputFunc('OnTrigger', checkItem)
+    trigger:RedirectOutputFunc('OnStartTouch', checkItem)
     trigger:RedirectOutputFunc('OnEndTouch', onEndTouch)
+
+    -- constant triggering helps position into LOS while still touching
+    trigger:RedirectOutputFunc('OnTrigger', checkItem)
 end
 
 ---Checks if an entity is collectable by `collector`.
