@@ -16,3 +16,7 @@ panorama/scripts/custom_game/panoramadoc.js
 panorama/layout/custom_game/alyxlib_debug_menu.xml
 panorama/scripts/custom_game/alyxlib_debug_menu.js
 panorama/styles/custom_game/alyxlib_debug_menu.css
+
+# Auto Pickup ignores
+
+maps/test.vmap
