@@ -59,7 +59,7 @@ local function checkItem(_, ioparams)
     local itemInfo = itemClasses[class]
 
     if not itemInfo then
-        devprint('Did not collect ' .. class .. ' because it is not in the item list')
+        devprint2('Did not collect ' .. class .. ' because it is not in the item list')
         return
     end
 
@@ -71,12 +71,12 @@ local function checkItem(_, ioparams)
     end
 
     if not collector:IsCollectableItem(activator) then
-        devprint('Did not collect ' .. class .. ' because it is not collectable')
+        devprint2('Did not collect ' .. class .. ' because it is not collectable')
         return
     end
 
     if Convars:GetBool('auto_pickup_require_los') and not util.LosWithPlayer(activator) then
-        devprint('Did not collect ' .. class .. ' because player does not have line of sight')
+        devprint2('Did not collect ' .. class .. ' because player does not have line of sight')
         return
     end
 
@@ -98,7 +98,7 @@ local function checkItem(_, ioparams)
         SendToConsole(itemInfo.cmd)
     end
 
-    devprint('Collected ' .. class)
+    devprint2('Auto pickup collected ' .. class)
 
     -- remove the item from the world
     UTIL_Remove(activator)
