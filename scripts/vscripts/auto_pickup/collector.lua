@@ -130,7 +130,8 @@ function collector:Init(parent)
     local trigger = SpawnEntityFromTableSynchronous('trigger_multiple',
         {
             targetname='_auto_pickup_collector_trigger',
-            spawnflags='4104', -- only physics objects
+            -- spawnflags='4104', -- only physics objects
+            spawnflags='64',-- everything, allows parented ammo
             model='models/auto_pickup/collector_trigger.vmdl',
             origin=Player:GetOrigin(),
 	        filtername = filter:GetName(),
