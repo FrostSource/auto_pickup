@@ -142,7 +142,44 @@ function collector:Init(parent)
     trigger:RedirectOutputFunc('OnEndTouch', onEndTouch)
 
     -- constant triggering helps position into LOS while still touching
-    trigger:RedirectOutputFunc('OnTrigger', checkItem)
+
+    ---If an item is grav pulled we don't want to collect it,
+    ---because the player is intentionally trying to pick it up.
+    ---@param event GameEventGrabbityGlovePull
+    ListenToGameEvent('grabbity_glove_pull', function (_, event)
+        if not Convars:GetBool('auto_pickup_ignore_grav_pulled') then return end
+
+        local ent = EntIndexToHScript(event.entindex)
+
+        if not IsValidEntity(ent) then return end
+        ---@cast ent -nil
+
+        if self:IsCollectableItem(ent) then
+            ent:SetIntAttr('IgnoreCollector', 1)
+        end
+
+    end, self)
+
+    if not util.IsPartialClipStorageEnabled() then
+        ---If the player chambers a round from a clip, we shouldn't collect that clip because it's now partly empty.
+        ---Don't know of a better way to detect partly empty clips.
+        ---@param event GameEventPlayerPistolChamberedRound
+        ListenToGameEvent('player_pistol_chambered_round', function (_, event)
+
+            local pistol = Player.Items.weapons.energygun
+            if not IsValidEntity(pistol) then
+                warn('Could not find player pistol to check for chambered round')
+                return
+            end
+            ---@cast pistol -nil
+
+            local clip = pistol:GetFirstChildWithClassname('item_hlvr_clip_energygun')
+            if IsValidEntity(clip) then
+                ---@cast clip -nil
+                clip:SetIntAttr('ClipHasBeenChambered', 1)
+            end
+        end, self)
+    end
 end
 
 ---Checks if an entity is collectable by `collector`.
@@ -182,44 +219,6 @@ end
 ---@return EntityHandle?
 function collector:GetTrigger()
     return Entities:FindByName(nil, '_auto_pickup_collector_trigger')
-end
-
----If an item is grav pulled we don't want to collect it,
----because the player is intentionally trying to pick it up.
----@param event GameEventGrabbityGlovePull
-ListenToGameEvent('grabbity_glove_pull', function (event)
-    if not Convars:GetBool('auto_pickup_ignore_grav_pulled') then return end
-
-    local ent = EntIndexToHScript(event.entindex)
-
-    if not IsValidEntity(ent) then return end
-    ---@cast ent -nil
-
-    if collector:IsCollectableItem(ent) then
-        ent:SetIntAttr('IgnoreCollector', 1)
-    end
-
-end, nil)
-
-if not util.IsPartialClipStorageEnabled() then
-    ---If the player chambers a round from a clip, we shouldn't collect that clip because it's now partly empty.
-    ---Don't know of a better way to detect partly empty clips.
-    ---@param event GameEventPlayerPistolChamberedRound
-    ListenToGameEvent('player_pistol_chambered_round', function (event)
-
-        local pistol = Player.Items.weapons.energygun
-        if not IsValidEntity(pistol) then
-            warn('Could not find player pistol to check for chambered round')
-            return
-        end
-        ---@cast pistol -nil
-
-        local clip = pistol:GetFirstChildWithClassname('item_hlvr_clip_energygun')
-        if IsValidEntity(clip) then
-            ---@cast clip -nil
-            clip:SetIntAttr('ClipHasBeenChambered', 1)
-        end
-    end, nil)
 end
 
 return collector
