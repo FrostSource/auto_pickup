@@ -201,7 +201,7 @@ function collector:IsCollectableItem(ent)
 
     local parent = ent:GetMoveParent()
     if parent then
-        if parent:IsNPC() then return false end
+        if parent:IsNPC() and parent:IsAlive() then return false end
         if parent:GetClassname() == 'prop_hlvr_crafting_station_console' then return false end
     end
 
