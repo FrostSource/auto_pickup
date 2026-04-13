@@ -42,7 +42,10 @@ local function createFilterMultiClass(...)
         if not class then break end
 
         local fName = '_auto_pickup_filter_' .. class
-        createFilterClass(class, fName)
+        local existingFilter = Entities:FindByName(nil, fName)
+        if not existingFilter or existingFilter:GetClassname() ~= 'filter_activator_class' then
+            createFilterClass(class, fName)
+        end
 
         if i == 10 then
             keys['Filter10'] = fName
