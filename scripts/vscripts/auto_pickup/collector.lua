@@ -48,8 +48,8 @@ local itemClasses = {
     },
 }
 
-local function checkItem(_, ioparams)
-    print('in checker')
+---@param ioparams IOParams
+local function onStartTouch(_, ioparams)
     local activator = ioparams.activator
 
     if not IsValidEntity(activator) then return end
@@ -138,10 +138,11 @@ function collector:Init(parent)
     -- moving the trigger down helps mitigate misses when an item is next to a prop
     trigger:SetLocalOrigin(Vector(0, 0, -16))
 
-    trigger:RedirectOutputFunc('OnStartTouch', checkItem)
+    trigger:RedirectOutputFunc('OnStartTouch', onStartTouch)
     trigger:RedirectOutputFunc('OnEndTouch', onEndTouch)
 
     -- constant triggering helps position into LOS while still touching
+    trigger:RedirectOutputFunc('OnTrigger', onStartTouch)
 
     ---If an item is grav pulled we don't want to collect it,
     ---because the player is intentionally trying to pick it up.
