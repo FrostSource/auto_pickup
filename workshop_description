@@ -1,0 +1,64 @@
+[h1]Auto Pickup[/h1]
+
+Automatically pick up ammo and resin as you walk over them.
+
+[i]This addon requires [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3329679071]AlyxLib[/url] to work.[/i]
+
+[h2]How To Use[/h2]
+
+Move close to an ammo or resin item to automatically collect it into your inventory. By default the item must have line of sight with the player (this can be changed with a console command below).
+
+Items will not be automatically collected if:
+
+[list]
+[*]It has just been taken out of your backpack
+[*]It has just been pulled with the gravity gloves
+[*]It has just been ejected from your weapon
+[*]It is being held in your hand
+[/list]
+
+If one of the above has happened and you wish to automatically collect the item; move away from it, then walk back over it.
+
+[h2]Console Commands[/h2]
+
+Console commands allow you to customize and tweak the addon while playing. They are not required to use the addon, and for most users the default values will provide a good experience.
+
+If you don't know how to use the console, follow this guide: https://steamcommunity.com/sharedfiles/filedetails/?id=2040205272
+
+[hr][/hr]
+[list]
+
+[*][b]auto_pickup_require_los[/b]
+Default = 1
+Items must have a direct line of sight with the player so they cannot be collected through walls.
+[i]This convar is persistent with your save file.[/i]
+
+[*][b]auto_pickup_ignore_held_items[/b]
+Default = 1
+Items that are being held in your hand will not be automatically collected until they are dropped.
+[i]This convar is persistent with your save file.[/i]
+
+[*][b]auto_pickup_ignore_grav_pulled[/b]
+Default = 1
+Items that have just been pulled with the gravity glove will not be collected until the player has moved away from the item.
+[i]This convar is persistent with your save file.[/i]
+
+[/list]
+
+[hr][/hr]
+Console commands can be set in the [url=https://help.steampowered.com/faqs/view/7D01-D2DD-D75E-2955]launch options[/url] for Half-Life: Alyx, just put a hyphen before each name and the value after, e.g. [b]-auto_pickup_require_los 1[/b]
+They can also be added to your [b]Half-Life Alyx\game\hlvr\cfg\skill.cfg[/b] file, one per line without the hyphen, e.g. [b]auto_pickup_require_los 1[/b]
+
+[h2]Source Code[/h2]
+
+GitHub: https://github.com/FrostSource/auto_pickup
+
+[h2]Known Issues[/h2]
+
+
+
+[h2]Getting Help[/h2]
+
+Please feel free to reach out either by commenting below or on the Discord server!
+
+[url=https://discord.gg/42SC3Wyjv4][img]https://steamuserimages-a.akamaihd.net/ugc/2397692528302959470/036A75FE4B2E8CD2224F8B62E7CEBEE649493C40/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img][/url]
