@@ -55,6 +55,8 @@ local function onStartTouch(_, ioparams)
     if not IsValidEntity(activator) then return end
     ---@cast activator -nil
 
+    if activator:GetIntAttr('IsCollected') == 1 then return end
+
     local class = activator:GetClassname()
     local itemInfo = itemClasses[class]
 
@@ -99,6 +101,9 @@ local function onStartTouch(_, ioparams)
     end
 
     devprint2('Auto pickup collected ' .. class)
+
+    -- set this flag to avoid collecting the same item multiple times if hit with both OnStartTouch and OnTrigger outputs
+    activator:SetIntAttr('IsCollected', 1)
 
     -- remove the item from the world
     UTIL_Remove(activator)
